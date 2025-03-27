@@ -19,6 +19,6 @@ fun RootNavGraph(navController : NavHostController){
         startDestination = NavGraph.SPLASH
     ){
         splashNavGraph(navController)
-        homeNavGraph(navController =  navController)
+        homeNavGraph()
     }
 }

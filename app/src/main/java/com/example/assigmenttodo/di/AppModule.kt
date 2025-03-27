@@ -1,7 +1,10 @@
 package com.example.assigmenttodo.di
 
+import com.example.assigmenttodo.data.repo.TodoRepositoryImpl
 import com.example.assigmenttodo.data.source.remote.ApiService
 import com.example.assigmenttodo.data.util.OkHttpClientHelper
+import com.example.assigmenttodo.domain.repo.TodoRepository
+import com.example.assigmenttodo.presentation.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +23,7 @@ object AppModule {
     @Provides
     fun provideTodoApi(): ApiService {
         return Retrofit.Builder()
-            .baseUrl("BASE_URL") // TODO: CHANGE TO ACTUAL BASE URL!
+            .baseUrl(BASE_URL)
             .client(OkHttpClientHelper().getOkHttpClient())
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
@@ -30,11 +33,11 @@ object AppModule {
 
 
 
-//    @Singleton
-//    @Provides
-//    fun providesGetBlogRepository(apiServices: ApiService): HomeRepository {
-//        return HomeRepositoryImpl(apiServices)
-//    }
+    @Singleton
+    @Provides
+    fun providesGetTasks(apiServices: ApiService): TodoRepository {
+        return TodoRepositoryImpl(apiServices)
+    }
 
 
 }

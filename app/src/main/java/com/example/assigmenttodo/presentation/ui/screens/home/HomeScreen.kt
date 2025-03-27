@@ -4,21 +4,30 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +40,8 @@ import com.example.assigmenttodo.presentation.ui.components.TaskItem
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(todoList: ApiResult<List<Task>>) {
+    var showDialog by remember { mutableStateOf(false) }
+    var taskTitle = remember { mutableStateOf("") }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -43,7 +54,7 @@ fun HomeScreen(todoList: ApiResult<List<Task>>) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    /* todo: on click add item */
+                    showDialog = true
                 },
                 containerColor = Color.Cyan,
                 contentColor = Color.Black
@@ -90,5 +101,43 @@ fun HomeScreen(todoList: ApiResult<List<Task>>) {
             }
         }
     }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            containerColor = Color.Gray,
+            title = { Text(text = "Enter Task Title", color = Color.White) },
+            text = {
+                OutlinedTextField(
+                    value = taskTitle.value,
+                    onValueChange = { taskTitle.value = it },
+                    label = { Text("Your Task") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    singleLine = true
+                )
+            },
+            confirmButton = {
+                Button (
+                    onClick = {
+                        // TODO: Handle task creation
+                    },
+                    colors = ButtonDefaults.textButtonColors(containerColor = Color.Cyan)
+                ) {
+                    Text("Create" , color = Color.Black)
+                }
+            },
+            dismissButton = {
+                Button (
+                    onClick = { showDialog = false },
+                    colors = ButtonDefaults.textButtonColors(containerColor = Color.Red)
+                ) {
+                    Text("Cancel" , color = Color.White)
+                }
+            }
+        )
+    }
+
 }
 

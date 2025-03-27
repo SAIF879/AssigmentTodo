@@ -1,4 +1,4 @@
-package com.example.assigmenttodo.presentation.ui.screens
+package com.example.assigmenttodo.presentation.ui.screens.splash
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

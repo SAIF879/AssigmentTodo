@@ -1,4 +1,4 @@
-package com.example.assigmenttodo.presentation.ui.screens
+package com.example.assigmenttodo.presentation.ui.screens.home
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController

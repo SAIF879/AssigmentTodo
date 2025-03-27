@@ -70,6 +70,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    //material 3
+    implementation (libs.material3)
+
     // OkHttp
     implementation (libs.okhttp)
     implementation (libs.logging.interceptor)
